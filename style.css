@@ -83,50 +83,55 @@ button {
   padding-left: 18px;
   padding-bottom: 10px;
   box-shadow: inset 5px 5px 10px var(--dark-shadow);
+  filter: brightness(98%);
 }
 
 .space {
-  width: 600px;
+  width: 550px;
   background: var(--gold);
 }
 .shift {
-  width: 230px;
+  width: 275px;
   background: var(--grey);
 }
-
 .quote {
   width: 63px;
 }
-.backspace,
+.del {
+  width: 75px;
+  background: var(--grey);
+}
+.backspace {
+  width: 210px;
+  background: var(--grey);
+}
 .caps {
-  width: 210px;
+  width: 165px;
   background: var(--grey);
 }
-
 .enter {
-  width: 210px;
+  width: 200px;
   background: var(--gold);
 }
-
-.enter {
-  background: var(--gold);
-}
-
 .tab {
-  width: 150px;
+  width: 130px;
   background: var(--grey);
 }
-.win,
-.fn {
-  width: 150px;
+.win {
+  width: 110px;
   background: var(--gold);
 }
 .slash {
-  width: 122px;
+  width: 63px;
 }
-
+.ctrl,
+.alt,
+.right-shift {
+  width: 90px;
+  background: var(--grey);
+}
 .ctrl,
 .alt {
-  width: 120px;
+  width: 110px;
   background: var(--grey);
 }

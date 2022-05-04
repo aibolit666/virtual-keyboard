@@ -32,6 +32,7 @@ const keyValues = [
   "[",
   "]",
   "\\",
+  "Del",
   "Caps",
   "a",
   "s",
@@ -56,15 +57,19 @@ const keyValues = [
   ",",
   ".",
   "?",
-  "Shift",
+  "&#8593",
+  "shift",
   "Ctrl",
   "Win",
   "Alt",
   "Space",
   "Alt",
-  "Fn",
   "Ctrl",
+  "&#8592;",
+  "&#8595;",
+  "&#8594;",
 ];
+
 wrapper.classList.add("wrapper");
 wrapperButtonKeys.classList.add("row");
 
@@ -74,62 +79,59 @@ keyValues.forEach((key) => {
   switch (key) {
     case "Backspace":
       buttonKey.classList.add("backspace");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     case "`":
       buttonKey.classList.add("quote");
-      buttonKey.textContent = key;
-      break;
-    case "'":
-      buttonKey.classList.add("quote");
-      buttonKey.textContent = key;
-      break;
-    case ";":
-      buttonKey.classList.add("quote");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     case "Tab":
       buttonKey.classList.add("tab");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     case "\\":
       buttonKey.classList.add("slash");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
+      break;
+    case "Del":
+      buttonKey.classList.add("del");
+      buttonKey.innerHTML = key;
       break;
     case "Enter":
       buttonKey.classList.add("enter");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     case "Caps":
       buttonKey.classList.add("caps");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     case "Shift":
       buttonKey.classList.add("shift");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
+      break;
+    case "shift":
+      buttonKey.classList.add("right-shift");
+      buttonKey.innerHTML = "Shift";
       break;
     case "Ctrl":
       buttonKey.classList.add("ctrl");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     case "Win":
       buttonKey.classList.add("win");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     case "Alt":
       buttonKey.classList.add("alt");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     case "Space":
       buttonKey.classList.add("space");
-      buttonKey.textContent = key;
-      break;
-    case "Fn":
-      buttonKey.classList.add("fn");
-      buttonKey.textContent = key;
+      buttonKey.innerHTML = key;
       break;
     default:
-      buttonKey.textContent = key.toLowerCase();
+      buttonKey.innerHTML = key.toLowerCase();
+      break;
   }
   buttonKey.setAttribute("type", "button");
   wrapperButtonKeys.appendChild(buttonKey);
