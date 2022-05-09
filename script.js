@@ -139,8 +139,20 @@ let capsLock = false;
 
 const wrapper = document.createElement("div");
 const wrapperButtonKeys = document.createElement("div");
+const labelForInput = document.createElement("label");
+const textArea = document.createElement("textarea");
+labelForInput.classList.add("cursor");
+labelForInput.id = "labelCursor";
+labelForInput.for = "input";
+textArea.classList.add("keyboard-input");
+textArea.placeholder = "Click here";
+textArea.id = "input";
+textArea.type = "text";
+textArea.autofocus = true;
 wrapper.classList.add("wrapper");
 wrapperButtonKeys.classList.add("row");
+bodyContent.appendChild(labelForInput);
+bodyContent.appendChild(textArea);
 bodyContent.appendChild(wrapper);
 wrapper.appendChild(wrapperButtonKeys);
 
