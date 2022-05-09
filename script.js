@@ -384,14 +384,17 @@ const onInput = (e) => {
     input.value = inputArr.join("");
   } else if (inputVal === "Caps") {
     inputVal = "";
-  } else if (inputVal === "Backspace" || inputVal === null) {
+  } else if (
+    inputVal === "Backspace" ||
+    e.inputType === "deleteContentBackward"
+  ) {
     inputArr.pop();
     input.value = inputArr.join("");
   } else if (inputVal === "Tab") {
     inputVal = "    ";
     inputArr.push(inputVal);
     input.value = inputArr.join("");
-  } else if (inputVal === "Enter") {
+  } else if (inputVal === "Enter" || e.inputType === "insertLineBreak") {
     inputVal = "\n";
     inputArr.push(inputVal);
     input.value = inputArr.join("");
@@ -424,7 +427,6 @@ const onInput = (e) => {
       input.value.length - count,
       input.value.length - count
     );
-
     input.focus();
   } else if (inputVal === "shift") {
     rightShift = !rightShift;
@@ -510,11 +512,24 @@ const capsLockFu = () => {
   } else {
     keyValues = lowerCase;
   }
-
   buttonKeys.forEach((i, index) => {
     // eslint-disable-next-line no-param-reassign
     i.innerHTML = keyValues[index];
   });
+};
+
+const enterPress = () => {
+  document.querySelector(".enter").classList.toggle("active");
+  setTimeout(() => {
+    document.querySelector(".enter").classList.toggle("active");
+  }, 100);
+};
+
+const backspacePress = () => {
+  document.querySelector(".backspace").classList.toggle("active");
+  setTimeout(() => {
+    document.querySelector(".backspace").classList.toggle("active");
+  }, 100);
 };
 
 function runOnKeys(func, ...codes) {
@@ -536,6 +551,9 @@ function runOnKeys(func, ...codes) {
 }
 
 runOnKeys(() => changeLang(), "AltLeft", "ShiftLeft");
-const capsL = document.querySelector(".caps");
 runOnKeys(() => capsLockFu(), "CapsLock");
+runOnKeys(() => enterPress(), "Enter");
+runOnKeys(() => backspacePress(), "Backspace");
+
+const capsL = document.querySelector(".caps");
 capsL.addEventListener("click", capsLockFu);
