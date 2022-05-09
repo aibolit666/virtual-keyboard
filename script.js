@@ -289,7 +289,11 @@ textArea.placeholder = "Click here";
 textArea.id = "input";
 textArea.type = "text";
 textArea.autofocus = true;
-changeLangInfo.innerHTML = "Change language keys: Left Alt + Left Shift";
+if (lang === "en") {
+  changeLangInfo.innerHTML = "Change language: Left Alt + Left Shift";
+} else {
+  changeLangInfo.innerHTML = "Изменить язык: Left Alt + Left Shift";
+}
 wrapper.classList.add("wrapper");
 wrapperButtonKeys.classList.add("row");
 changeLangInfo.classList.add("info");
