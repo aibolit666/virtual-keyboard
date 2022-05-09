@@ -282,22 +282,21 @@ let count = 0;
 
 const wrapper = document.createElement("div");
 const wrapperButtonKeys = document.createElement("div");
-const labelForInput = document.createElement("label");
 const textArea = document.createElement("textarea");
 const changeLangInfo = document.createElement("span");
-labelForInput.classList.add("cursor");
-labelForInput.id = "labelCursor";
-labelForInput.for = "input";
 textArea.classList.add("keyboard-input");
 textArea.placeholder = "Click here";
 textArea.id = "input";
 textArea.type = "text";
 textArea.autofocus = true;
-changeLangInfo.innerHTML = "Change language keys: Left Alt + Left Shift";
+if (lang === "en") {
+  changeLangInfo.innerHTML = "Change language: Left Alt + Left Shift";
+} else {
+  changeLangInfo.innerHTML = "Изменить язык: Left Alt + Left Shift";
+}
 wrapper.classList.add("wrapper");
 wrapperButtonKeys.classList.add("row");
 changeLangInfo.classList.add("info");
-bodyContent.appendChild(labelForInput);
 bodyContent.appendChild(textArea);
 bodyContent.appendChild(wrapper);
 wrapper.appendChild(wrapperButtonKeys);
@@ -371,7 +370,6 @@ const inputArr = [];
 let inputVal = "";
 const buttonKeys = document.querySelectorAll(".btn-key");
 const input = document.getElementById("input");
-// const label = document.getElementById("labelCursor");
 
 const onInput = (e) => {
   inputVal = e.target.textContent;
@@ -399,7 +397,7 @@ const onInput = (e) => {
     inputArr.push(inputVal);
     input.value = inputArr.join("");
   } else if (inputVal === "Win") {
-    alert("Нажатие Win");
+    console.log("Нажатие Win");
   } else if (inputVal === "Shift") {
     leftShift = !leftShift;
     if (alt && leftShift) {
@@ -426,6 +424,17 @@ const onInput = (e) => {
     input.setSelectionRange(
       input.value.length - count,
       input.value.length - count
+    );
+    input.focus();
+  } else if (inputVal === "↓") {
+    inputVal = "";
+    input.setSelectionRange(input.value.length, input.value.length);
+    input.focus();
+  } else if (inputVal === "↑") {
+    inputVal = "";
+    input.setSelectionRange(
+      input.value.length - input.value.length,
+      input.value.length - input.value.length
     );
     input.focus();
   } else if (inputVal === "shift") {

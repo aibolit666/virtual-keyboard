@@ -163,21 +163,3 @@ button {
   font-size: 1.3em;
   color: var(--black);
 }
-/* .cursor::before {
-  content: "";
-  position: absolute;
-  top: 63px;
-  width: 5px;
-  height: var(--font);
-  color: black;
-  background: #000;
-  z-index: 3;
-  opacity: 1;
-  animation: cursor 1s infinite step-end;
-}
-
-@keyframes cursor {
-  50% {
-    background: transparent;
-  }
-} */
