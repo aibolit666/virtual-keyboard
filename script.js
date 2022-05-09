@@ -1,4 +1,5 @@
 const bodyContent = document.getElementById("root");
+let lang = "en";
 
 const lowerCase = [
   "`",
@@ -29,7 +30,6 @@ const lowerCase = [
   "[",
   "]",
   "\\",
-  "Del",
   "Caps",
   "a",
   "s",
@@ -95,7 +95,6 @@ const upperCase = [
   "{",
   "}",
   "|",
-  "Del",
   "Caps",
   "A",
   "S",
@@ -132,8 +131,146 @@ const upperCase = [
   "&#8595;",
   "&#8594;",
 ];
-
-let keyValues = lowerCase;
+const ruLowerCase = [
+  "ё",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "0",
+  "-",
+  "=",
+  "Backspace",
+  "Tab",
+  "й",
+  "ц",
+  "у",
+  "к",
+  "е",
+  "н",
+  "г",
+  "ш",
+  "щ",
+  "з",
+  "х",
+  "ъ",
+  "\\",
+  "Caps",
+  "ф",
+  "ы",
+  "в",
+  "а",
+  "п",
+  "р",
+  "о",
+  "л",
+  "д",
+  "ж",
+  "э",
+  "Enter",
+  "Shift",
+  "я",
+  "ч",
+  "с",
+  "м",
+  "и",
+  "т",
+  "ь",
+  "б",
+  "ю",
+  ".",
+  "&#8593",
+  "shift",
+  "Ctrl",
+  "Win",
+  "Alt",
+  "Space",
+  "Alt",
+  "Ctrl",
+  "&#8592;",
+  "&#8595;",
+  "&#8594;",
+];
+const ruUpperCase = [
+  "Ё",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "0",
+  "-",
+  "=",
+  "Backspace",
+  "Tab",
+  "Й",
+  "Ц",
+  "У",
+  "К",
+  "Е",
+  "Н",
+  "Г",
+  "Ш",
+  "Щ",
+  "З",
+  "Х",
+  "Ъ",
+  "\\",
+  "Caps",
+  "Ф",
+  "Ы",
+  "В",
+  "А",
+  "П",
+  "Р",
+  "О",
+  "Л",
+  "Д",
+  "Ж",
+  "Э",
+  "Enter",
+  "Shift",
+  "Я",
+  "Ч",
+  "С",
+  "М",
+  "И",
+  "Т",
+  "Ь",
+  "Б",
+  "Ю",
+  ".",
+  "&#8593",
+  "shift",
+  "Ctrl",
+  "Win",
+  "Alt",
+  "Space",
+  "Alt",
+  "Ctrl",
+  "&#8592;",
+  "&#8595;",
+  "&#8594;",
+];
+if (localStorage.getItem("lang")) {
+  lang = localStorage.getItem("lang");
+}
+let keyValues;
+if (lang === "en") {
+  keyValues = lowerCase;
+}
+if (lang === "ru") {
+  keyValues = ruLowerCase;
+}
 
 let capsLock = false;
 
@@ -141,6 +278,7 @@ const wrapper = document.createElement("div");
 const wrapperButtonKeys = document.createElement("div");
 const labelForInput = document.createElement("label");
 const textArea = document.createElement("textarea");
+const changeLangInfo = document.createElement("span");
 labelForInput.classList.add("cursor");
 labelForInput.id = "labelCursor";
 labelForInput.for = "input";
@@ -149,12 +287,15 @@ textArea.placeholder = "Click here";
 textArea.id = "input";
 textArea.type = "text";
 textArea.autofocus = true;
+changeLangInfo.innerHTML = "Change language keys: Left Alt + Left Shift";
 wrapper.classList.add("wrapper");
 wrapperButtonKeys.classList.add("row");
+changeLangInfo.classList.add("info");
 bodyContent.appendChild(labelForInput);
 bodyContent.appendChild(textArea);
 bodyContent.appendChild(wrapper);
 wrapper.appendChild(wrapperButtonKeys);
+bodyContent.appendChild(changeLangInfo);
 
 keyValues.forEach((key) => {
   const buttonKey = document.createElement("button");
@@ -163,6 +304,10 @@ keyValues.forEach((key) => {
   switch (key) {
     case "Backspace":
       buttonKey.classList.add("backspace");
+      buttonKey.innerHTML = key;
+      break;
+    case "ё":
+      buttonKey.classList.add("quote");
       buttonKey.innerHTML = key;
       break;
     case "`":
@@ -175,10 +320,6 @@ keyValues.forEach((key) => {
       break;
     case "\\":
       buttonKey.classList.add("slash");
-      buttonKey.innerHTML = key;
-      break;
-    case "Del":
-      buttonKey.classList.add("del");
       buttonKey.innerHTML = key;
       break;
     case "Enter":
@@ -222,7 +363,6 @@ keyValues.forEach((key) => {
 });
 const inputArr = [];
 let inputVal = "";
-let count = 0;
 const buttonKeys = document.querySelectorAll(".btn-key");
 const input = document.getElementById("input");
 // const label = document.getElementById("labelCursor");
@@ -249,14 +389,8 @@ const onInput = (e) => {
     inputVal = "\n";
     inputArr.push(inputVal);
     input.value = inputArr.join("");
-  } else if (inputVal === "←") {
-    if (count < inputArr.length) {
-      count += 1;
-    }
-    inputVal = "";
-    // todo
-    input.value = inputArr.join("");
-    input.focus();
+  } else if (inputVal === "Win") {
+    console.log("WIN");
   } else {
     inputArr.push(inputVal);
     input.value = inputArr.join("");
@@ -279,6 +413,27 @@ const keyboardInput = document.querySelector(".keyboard-input");
 keyboardInput.addEventListener("input", onInput);
 buttonKeys.forEach((i) => i.addEventListener("click", onInput));
 
+const changeLang = () => {
+  if (keyValues === lowerCase) {
+    keyValues = ruLowerCase;
+    lang = "ru";
+  } else if (keyValues === upperCase) {
+    keyValues = ruUpperCase;
+    lang = "ru";
+  } else if (keyValues === ruLowerCase) {
+    keyValues = lowerCase;
+    lang = "en";
+  } else if (keyValues === ruUpperCase) {
+    keyValues = upperCase;
+    lang = "en";
+  }
+  localStorage.setItem("lang", lang);
+  buttonKeys.forEach((i, index) => {
+    // eslint-disable-next-line no-param-reassign
+    i.innerHTML = keyValues[index];
+  });
+};
+
 const capsLockFu = () => {
   capsLock = !capsLock;
   if (capsLock === true) {
@@ -293,6 +448,25 @@ const capsLockFu = () => {
   });
 };
 
-const capsL = document.querySelector(".caps");
+function runOnKeys(func, ...codes) {
+  const pressed = new Set();
+  document.addEventListener("keydown", (event) => {
+    pressed.add(event.code);
+    // eslint-disable-next-line no-restricted-syntax
+    for (const code of codes) {
+      if (!pressed.has(code)) {
+        return;
+      }
+    }
+    pressed.clear();
+    func();
+  });
+  document.addEventListener("keyup", (event) => {
+    pressed.delete(event.code);
+  });
+}
 
+runOnKeys(() => changeLang(), "AltLeft", "ShiftLeft");
+const capsL = document.querySelector(".caps");
+runOnKeys(() => capsLockFu(), "CapsLock");
 capsL.addEventListener("click", capsLockFu);
