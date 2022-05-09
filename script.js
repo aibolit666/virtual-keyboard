@@ -396,7 +396,6 @@ const onInput = (e) => {
   } else if (inputVal === "Shift") {
     leftShift = !leftShift;
     if (alt && leftShift) {
-      alt = !alt;
       leftShift = !leftShift;
       changeLang();
     }
@@ -426,11 +425,8 @@ const onInput = (e) => {
     capsLockFu();
   }
 
-  if (e.target.textContent === "Alt" && alt) {
+  if (e.target.textContent === "Alt") {
     document.querySelector(".alt").classList.toggle("active");
-    if (!alt) {
-      alt = !alt;
-    }
   }
 
   if (e.target.textContent === "Ctrl" && ctrl) {
@@ -474,6 +470,10 @@ const changeLang = () => {
     // eslint-disable-next-line no-param-reassign
     i.innerHTML = keyValues[index];
   });
+  if (alt) {
+    document.querySelector(".alt").classList.toggle("active");
+    alt = !alt;
+  }
 };
 
 const capsLockFu = () => {
