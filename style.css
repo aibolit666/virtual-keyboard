@@ -7,12 +7,12 @@
   --gold: #d38458;
   --grey: lightgrey;
   --grey-back: rgb(79, 78, 78);
+  --font: 22px;
 }
 
 html {
   box-sizing: border-box;
   background: #f1f1f1;
-
   text-align: center;
 }
 
@@ -24,9 +24,15 @@ html {
   padding: 0;
 }
 
+/* input,
+textarea,
+[contenteditable] {
+  caret-color: rgba(0, 0, 0, 0);
+} */
+
 .body {
   font-family: "Nova Mono", monospace;
-  font-size: 22px;
+  font-size: var(--font);
   width: 100%;
 }
 
@@ -42,6 +48,7 @@ html {
 }
 
 .keyboard-input {
+  position: relative;
   border: 2px solid var(--grey-back);
   border-radius: 5px;
   resize: none;
@@ -78,9 +85,17 @@ button {
   box-shadow: inset 2px 0px 7px var(--dark-shadow);
   border-radius: 5px;
   transition: 0.1s;
+  cursor: pointer;
 }
 
 .btn-key:active {
+  padding-left: 18px;
+  padding-bottom: 10px;
+  box-shadow: inset 5px 5px 10px var(--dark-shadow);
+  filter: brightness(98%);
+}
+
+.active {
   padding-left: 18px;
   padding-bottom: 10px;
   box-shadow: inset 5px 5px 10px var(--dark-shadow);
@@ -91,48 +106,78 @@ button {
   width: 550px;
   background: var(--gold);
 }
+
 .shift {
   width: 275px;
   background: var(--grey);
 }
+
 .quote {
   width: 63px;
 }
+
 .del {
   width: 75px;
   background: var(--grey);
 }
+
 .backspace {
   width: 210px;
   background: var(--grey);
 }
+
 .caps {
   width: 165px;
   background: var(--grey);
 }
+
 .enter {
   width: 200px;
   background: var(--gold);
 }
+
 .tab {
   width: 130px;
   background: var(--grey);
 }
+
 .win {
   width: 110px;
   background: var(--gold);
 }
+
 .slash {
   width: 63px;
 }
+
 .ctrl,
 .alt,
 .right-shift {
   width: 90px;
   background: var(--grey);
 }
+
 .ctrl,
 .alt {
   width: 110px;
   background: var(--grey);
 }
+
+/* .cursor::before {
+  content: "";
+  position: absolute;
+  top: 63px;
+  width: 5px;
+  height: var(--font);
+  color: black;
+  background: #000;
+  z-index: 3;
+  opacity: 1;
+  animation: cursor 1s infinite step-end;
+}
+
+@keyframes cursor {
+  50% {
+    background: transparent;
+  }
+} */

@@ -208,8 +208,64 @@ keyValues.forEach((key) => {
   buttonKey.setAttribute("type", "button");
   wrapperButtonKeys.appendChild(buttonKey);
 });
-
+const inputArr = [];
+let inputVal = "";
+let count = 0;
 const buttonKeys = document.querySelectorAll(".btn-key");
+const input = document.getElementById("input");
+// const label = document.getElementById("labelCursor");
+
+const onInput = (e) => {
+  inputVal = e.target.textContent;
+  if (e.data !== undefined) {
+    inputVal = e.data;
+  }
+  if (inputVal === "Space") {
+    inputVal = " ";
+    inputArr.push(inputVal);
+    input.value = inputArr.join("");
+  } else if (inputVal === "Caps") {
+    inputVal = "";
+  } else if (inputVal === "Backspace" || inputVal === null) {
+    inputArr.pop();
+    input.value = inputArr.join("");
+  } else if (inputVal === "Tab") {
+    inputVal = "    ";
+    inputArr.push(inputVal);
+    input.value = inputArr.join("");
+  } else if (inputVal === "Enter") {
+    inputVal = "\n";
+    inputArr.push(inputVal);
+    input.value = inputArr.join("");
+  } else if (inputVal === "←") {
+    if (count < inputArr.length) {
+      count += 1;
+    }
+    inputVal = "";
+    // todo
+    input.value = inputArr.join("");
+    input.focus();
+  } else {
+    inputArr.push(inputVal);
+    input.value = inputArr.join("");
+    input.focus();
+  }
+  buttonKeys.forEach((i) => {
+    // eslint-disable-next-line no-param-reassign
+    if (e.data === i.innerHTML) {
+      i.classList.toggle("active");
+
+      setTimeout(() => {
+        i.classList.toggle("active");
+      }, 100);
+    }
+  });
+};
+
+const keyboardInput = document.querySelector(".keyboard-input");
+
+keyboardInput.addEventListener("input", onInput);
+buttonKeys.forEach((i) => i.addEventListener("click", onInput));
 
 const capsLockFu = () => {
   capsLock = !capsLock;
