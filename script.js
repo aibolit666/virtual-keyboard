@@ -273,6 +273,10 @@ if (lang === "ru") {
 }
 
 let capsLock = false;
+let leftShift = false;
+let rightShift = false;
+let leftCtrl = false;
+let rightCtrl = false;
 
 const wrapper = document.createElement("div");
 const wrapperButtonKeys = document.createElement("div");
@@ -389,16 +393,37 @@ const onInput = (e) => {
     inputVal = "\n";
     inputArr.push(inputVal);
     input.value = inputArr.join("");
-  } else if (inputVal === "Win") {
-    console.log("WIN");
+  } else if (inputVal === "Shift") {
+    leftShift = !leftShift;
+  } else if (inputVal === "shift") {
+    rightShift = !rightShift;
+  } else if (inputVal === "leftCtrl") {
+    leftCtrl = !leftCtrl;
+  } else if (inputVal === "rightCtrl") {
+    rightCtrl = !rightCtrl;
   } else {
     inputArr.push(inputVal);
     input.value = inputArr.join("");
     input.focus();
   }
+
+  if (e.target.textContent === "Shift" && leftShift) {
+    document.querySelector(".shift").classList.toggle("active");
+    leftShift = !leftShift;
+    // eslint-disable-next-line no-use-before-define
+    capsLockFu();
+  }
+
+  if (e.target.textContent === "shift" && rightShift) {
+    document.querySelector(".right-shift").classList.toggle("active");
+    rightShift = !rightShift;
+    // eslint-disable-next-line no-use-before-define
+    capsLockFu();
+  }
+
   buttonKeys.forEach((i) => {
-    // eslint-disable-next-line no-param-reassign
     if (e.data === i.innerHTML) {
+      // eslint-disable-next-line no-param-reassign
       i.classList.toggle("active");
 
       setTimeout(() => {
