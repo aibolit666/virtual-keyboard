@@ -278,6 +278,8 @@ let rightShift = false;
 let ctrl = false;
 let alt = false;
 
+let count = 0;
+
 const wrapper = document.createElement("div");
 const wrapperButtonKeys = document.createElement("div");
 const labelForInput = document.createElement("label");
@@ -393,12 +395,37 @@ const onInput = (e) => {
     inputVal = "\n";
     inputArr.push(inputVal);
     input.value = inputArr.join("");
+  } else if (inputVal === "Win") {
+    alert("Нажатие Win");
   } else if (inputVal === "Shift") {
     leftShift = !leftShift;
     if (alt && leftShift) {
       leftShift = !leftShift;
+      // eslint-disable-next-line no-use-before-define
       changeLang();
     }
+  } else if (inputVal === "←") {
+    inputVal = "";
+    if (count < input.value.length) {
+      count += 1;
+    } else {
+      count = 0;
+    }
+    input.setSelectionRange(input.value.length, input.value.length - count);
+    input.focus();
+  } else if (inputVal === "→") {
+    inputVal = "";
+    if (count < input.value.length && count > 0) {
+      count -= 1;
+    } else {
+      count = 0;
+    }
+    input.setSelectionRange(
+      input.value.length - count,
+      input.value.length - count
+    );
+
+    input.focus();
   } else if (inputVal === "shift") {
     rightShift = !rightShift;
   } else if (inputVal === "Ctrl") {
