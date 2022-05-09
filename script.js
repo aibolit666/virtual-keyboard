@@ -525,6 +525,10 @@ const capsLockFu = () => {
     // eslint-disable-next-line no-param-reassign
     i.innerHTML = keyValues[index];
   });
+  document.querySelector(".caps").classList.toggle("active");
+  setTimeout(() => {
+    document.querySelector(".caps").classList.toggle("active");
+  }, 100);
 };
 
 const enterPress = () => {
@@ -538,6 +542,27 @@ const backspacePress = () => {
   document.querySelector(".backspace").classList.toggle("active");
   setTimeout(() => {
     document.querySelector(".backspace").classList.toggle("active");
+  }, 100);
+};
+
+const ctrlPress = () => {
+  document.querySelector(".ctrl").classList.toggle("active");
+  setTimeout(() => {
+    document.querySelector(".ctrl").classList.toggle("active");
+  }, 100);
+};
+
+const tabPress = () => {
+  document.querySelector(".tab").classList.toggle("active");
+  setTimeout(() => {
+    document.querySelector(".tab").classList.toggle("active");
+  }, 100);
+};
+
+const shiftPress = () => {
+  document.querySelector(".shift").classList.toggle("active");
+  setTimeout(() => {
+    document.querySelector(".shift").classList.toggle("active");
   }, 100);
 };
 
@@ -563,6 +588,9 @@ runOnKeys(() => changeLang(), "AltLeft", "ShiftLeft");
 runOnKeys(() => capsLockFu(), "CapsLock");
 runOnKeys(() => enterPress(), "Enter");
 runOnKeys(() => backspacePress(), "Backspace");
+runOnKeys(() => ctrlPress(), "ControlLeft");
+runOnKeys(() => tabPress(), "Tab");
+runOnKeys(() => shiftPress(), "ShiftLeft");
 
 const capsL = document.querySelector(".caps");
 capsL.addEventListener("click", capsLockFu);
