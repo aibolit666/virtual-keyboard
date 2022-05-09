@@ -275,8 +275,8 @@ if (lang === "ru") {
 let capsLock = false;
 let leftShift = false;
 let rightShift = false;
-let leftCtrl = false;
-let rightCtrl = false;
+let ctrl = false;
+let alt = false;
 
 const wrapper = document.createElement("div");
 const wrapperButtonKeys = document.createElement("div");
@@ -395,12 +395,17 @@ const onInput = (e) => {
     input.value = inputArr.join("");
   } else if (inputVal === "Shift") {
     leftShift = !leftShift;
+    if (alt && leftShift) {
+      alt = !alt;
+      leftShift = !leftShift;
+      changeLang();
+    }
   } else if (inputVal === "shift") {
     rightShift = !rightShift;
-  } else if (inputVal === "leftCtrl") {
-    leftCtrl = !leftCtrl;
-  } else if (inputVal === "rightCtrl") {
-    rightCtrl = !rightCtrl;
+  } else if (inputVal === "Ctrl") {
+    ctrl = !ctrl;
+  } else if (inputVal === "Alt") {
+    alt = !alt;
   } else {
     inputArr.push(inputVal);
     input.value = inputArr.join("");
@@ -419,6 +424,18 @@ const onInput = (e) => {
     rightShift = !rightShift;
     // eslint-disable-next-line no-use-before-define
     capsLockFu();
+  }
+
+  if (e.target.textContent === "Alt" && alt) {
+    document.querySelector(".alt").classList.toggle("active");
+    if (!alt) {
+      alt = !alt;
+    }
+  }
+
+  if (e.target.textContent === "Ctrl" && ctrl) {
+    document.querySelector(".ctrl").classList.toggle("active");
+    ctrl = !ctrl;
   }
 
   buttonKeys.forEach((i) => {
