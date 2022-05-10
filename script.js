@@ -1,6 +1,71 @@
 const bodyContent = document.getElementById("root");
 let lang = "en";
 
+const keyCodes = [
+  "Backquote",
+  "Digit1",
+  "Digit2",
+  "Digit3",
+  "Digit4",
+  "Digit5",
+  "Digit6",
+  "Digit7",
+  "Digit8",
+  "Digit9",
+  "Digit0",
+  "Minus",
+  "Equal",
+  "Backspace",
+  "Tab",
+  "KeyQ",
+  "KeyW",
+  "KeyE",
+  "KeyR",
+  "KeyT",
+  "KeyY",
+  "KeyU",
+  "KeyI",
+  "KeyO",
+  "KeyP",
+  "BracketLeft",
+  "BracketRight",
+  "Backslash",
+  "CapsLock",
+  "KeyA",
+  "KeyS",
+  "KeyD",
+  "KeyF",
+  "KeyG",
+  "KeyH",
+  "KeyJ",
+  "KeyK",
+  "KeyL",
+  "Semicolon",
+  "Quote",
+  "Enter",
+  "ShiftLeft",
+  "KeyZ",
+  "KeyX",
+  "KeyC",
+  "KeyV",
+  "KeyB",
+  "KeyN",
+  "KeyM",
+  "Comma",
+  "Period",
+  "Slash",
+  "ArrowUp",
+  "ShiftRight",
+  "ControlLeft",
+  "MetaLeft",
+  "AltLeft",
+  "Space",
+  "AltRight",
+  "ControlRight",
+  "ArrowLeft",
+  "ArrowDown",
+  "ArrowRight",
+];
 const lowerCase = [
   "`",
   "1",
@@ -277,6 +342,7 @@ let leftShift = false;
 let rightShift = false;
 let ctrl = false;
 let alt = false;
+let onePress = false;
 
 let count = 0;
 
@@ -305,7 +371,7 @@ bodyContent.appendChild(changeLangInfo);
 keyValues.forEach((key) => {
   const buttonKey = document.createElement("button");
   buttonKey.classList.add("btn-key");
-
+  buttonKey.setAttribute("type", "button");
   switch (key) {
     case "Backspace":
       buttonKey.classList.add("backspace");
@@ -332,11 +398,11 @@ keyValues.forEach((key) => {
       buttonKey.innerHTML = key;
       break;
     case "Caps":
-      buttonKey.classList.add("caps");
+      buttonKey.classList.add("capsLock");
       buttonKey.innerHTML = key;
       break;
     case "Shift":
-      buttonKey.classList.add("shift");
+      buttonKey.classList.add("shiftLeft");
       buttonKey.innerHTML = key;
       break;
     case "shift":
@@ -344,7 +410,7 @@ keyValues.forEach((key) => {
       buttonKey.innerHTML = "Shift";
       break;
     case "Ctrl":
-      buttonKey.classList.add("ctrl");
+      buttonKey.classList.add("controlLeft");
       buttonKey.innerHTML = key;
       break;
     case "Win":
@@ -359,17 +425,33 @@ keyValues.forEach((key) => {
       buttonKey.classList.add("space");
       buttonKey.innerHTML = key;
       break;
+    case "&#8593":
+      buttonKey.innerHTML = key;
+      break;
+    case "&#8592;":
+      buttonKey.innerHTML = key;
+      break;
+    case "&#8595;":
+      buttonKey.innerHTML = key;
+      break;
+    case "&#8594;":
+      buttonKey.innerHTML = key;
+      break;
     default:
       buttonKey.innerHTML = key;
       break;
   }
-  buttonKey.setAttribute("type", "button");
   wrapperButtonKeys.appendChild(buttonKey);
 });
+
 const inputArr = [];
 let inputVal = "";
 const buttonKeys = document.querySelectorAll(".btn-key");
 const input = document.getElementById("input");
+
+buttonKeys.forEach((i, index) => {
+  i.setAttribute("id", keyCodes[index]);
+});
 
 const onInput = (e) => {
   inputVal = e.target.textContent;
@@ -397,7 +479,7 @@ const onInput = (e) => {
     inputArr.push(inputVal);
     input.value = inputArr.join("");
   } else if (inputVal === "Win") {
-    console.log("Нажатие Win");
+    inputVal = "";
   } else if (inputVal === "Shift") {
     leftShift = !leftShift;
     if (alt && leftShift) {
@@ -447,13 +529,27 @@ const onInput = (e) => {
     inputArr.push(inputVal);
     input.value = inputArr.join("");
     input.focus();
+    if (onePress === true) {
+      document.querySelector(".shiftLeft").classList.toggle("active");
+      // eslint-disable-next-line no-use-before-define
+      capsLockFu();
+    }
   }
 
   if (e.target.textContent === "Shift" && leftShift) {
-    document.querySelector(".shift").classList.toggle("active");
+    document.querySelector(".shiftLeft").classList.toggle("active");
     leftShift = !leftShift;
-    // eslint-disable-next-line no-use-before-define
-    capsLockFu();
+    capsLock = !capsLock;
+    onePress = true;
+    if (capsLock === true) {
+      keyValues = upperCase;
+    } else {
+      keyValues = lowerCase;
+    }
+    buttonKeys.forEach((i, index) => {
+      // eslint-disable-next-line no-param-reassign
+      i.innerHTML = keyValues[index];
+    });
   }
 
   if (e.target.textContent === "shift" && rightShift) {
@@ -468,7 +564,7 @@ const onInput = (e) => {
   }
 
   if (e.target.textContent === "Ctrl" && ctrl) {
-    document.querySelector(".ctrl").classList.toggle("active");
+    document.querySelector(".controlLeft").classList.toggle("active");
     ctrl = !ctrl;
   }
 
@@ -525,50 +621,43 @@ const capsLockFu = () => {
     // eslint-disable-next-line no-param-reassign
     i.innerHTML = keyValues[index];
   });
-  document.querySelector(".caps").classList.toggle("active");
-  setTimeout(() => {
-    document.querySelector(".caps").classList.toggle("active");
-  }, 100);
+  if (onePress === true) {
+    onePress = false;
+  }
 };
 
 const enterPress = () => {
-  document.querySelector(".enter").classList.toggle("active");
-  setTimeout(() => {
-    document.querySelector(".enter").classList.toggle("active");
-  }, 100);
+  // TODO
 };
 
 const backspacePress = () => {
-  document.querySelector(".backspace").classList.toggle("active");
-  setTimeout(() => {
-    document.querySelector(".backspace").classList.toggle("active");
-  }, 100);
+  // TODO
 };
 
 const ctrlPress = () => {
-  document.querySelector(".ctrl").classList.toggle("active");
-  setTimeout(() => {
-    document.querySelector(".ctrl").classList.toggle("active");
-  }, 100);
+  // TODO
 };
 
 const tabPress = () => {
-  document.querySelector(".tab").classList.toggle("active");
-  setTimeout(() => {
-    document.querySelector(".tab").classList.toggle("active");
-  }, 100);
+  // TODO
 };
 
 const shiftPress = () => {
-  document.querySelector(".shift").classList.toggle("active");
-  setTimeout(() => {
-    document.querySelector(".shift").classList.toggle("active");
-  }, 100);
+  // TODO
 };
+
+const onPressed = (eventKey) => {
+  document.getElementById(eventKey).classList.toggle("active");
+};
+
+let eventKey;
 
 function runOnKeys(func, ...codes) {
   const pressed = new Set();
   document.addEventListener("keydown", (event) => {
+    eventKey = event.code;
+    console.log(`Нажата: ${eventKey}`);
+    onPressed(eventKey);
     pressed.add(event.code);
     // eslint-disable-next-line no-restricted-syntax
     for (const code of codes) {
@@ -580,6 +669,8 @@ function runOnKeys(func, ...codes) {
     func();
   });
   document.addEventListener("keyup", (event) => {
+    eventKey = event.code;
+    onPressed(eventKey);
     pressed.delete(event.code);
   });
 }
@@ -592,5 +683,5 @@ runOnKeys(() => ctrlPress(), "ControlLeft");
 runOnKeys(() => tabPress(), "Tab");
 runOnKeys(() => shiftPress(), "ShiftLeft");
 
-const capsL = document.querySelector(".caps");
+const capsL = document.querySelector(".capsLock");
 capsL.addEventListener("click", capsLockFu);

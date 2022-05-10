@@ -107,7 +107,7 @@ button {
   background: var(--gold);
 }
 
-.shift {
+.shiftLeft {
   width: 275px;
   background: var(--grey);
 }
@@ -121,7 +121,7 @@ button {
   background: var(--grey);
 }
 
-.caps {
+.capsLock {
   width: 165px;
   background: var(--grey);
 }
@@ -145,14 +145,14 @@ button {
   width: 138px;
 }
 
-.ctrl,
+.controlLeft,
 .alt,
 .right-shift {
   width: 90px;
   background: var(--grey);
 }
 
-.ctrl,
+.controlLeft,
 .alt {
   width: 110px;
   background: var(--grey);
